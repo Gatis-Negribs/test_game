@@ -5,7 +5,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const config = {
     mode: "production",
     entry: {
-        main: ["./src/app.jsx"]
+        main: [
+            "./src/app.jsx",
+            "./src/results.jsx",
+            "./src/select.jsx",
+            "./src/radio.jsx"
+        ]
     },
     output: {
         path: path.join(__dirname, "./dist/"),

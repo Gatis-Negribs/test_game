@@ -1,17 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Results from './results'
+import Select from './select'
+import Radio from './radio'
 require('./mystyles.scss')
 
-class NameForm extends React.Component {
+class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       age: '',
-      activity: 0
-     };
+      activity: 0,
+      smoking: false,
+      like: false,
+      submitted: false
+    };
 
     this.handleAge = this.handleAge.bind(this);
     this.handleActivity = this.handleActivity.bind(this);
+    this.handleSmoking = this.handleSmoking.bind(this);
+    this.handleLike = this.handleLike.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -23,48 +31,51 @@ class NameForm extends React.Component {
     }
   }
 
-  handleActivity(event) {
-    this.setState({activity: event.target.value})
+  handleActivity(val) {
+    this.setState({activity: val})
+  }
+
+  handleSmoking(val) {
+    this.setState({smoking: val})
+  }
+
+  handleLike(val) {
+    this.setState({like: val})
   }
 
   handleSubmit(event) {
     if(this.state.age == '') return;
-    if(this.state.activity == 0) return;
-    alert('Age: ' + JSON.stringify(this.state));
+    this.setState({submitted: true})
+    console.log('state: ', this.state);
   }
 
   render() {
-    return (
-      <div className="container box">
-        <div className="columns">
-          <div className="column is-3 is-offset-3">
-            <span>Your age:</span>
+    if(this.state.submitted === true) {
+      return (
+        <Results data={this.state} />
+      )
+    }
+    else {
+      return (
+        <div className="container box">
+          <div className="columns">
+            <div className="column is-3 is-offset-3">
+              <span>Your age:</span>
+            </div>
+            <div className="column is-3">
+              <input type="text" className="input" value={this.state.age} onChange={this.handleAge} />
+            </div>
           </div>
-          <div className="column is-3">
-            <input type="text" className="input" value={this.state.age} onChange={this.handleAge} />
-          </div>
-        </div>
-        <div className="columns">
-          <div className="column is-3 is-offset-3">
-            <span>How often do you do sports:</span>
-          </div>
-          <div className="column is-3">
-            <span className="select">
-              <select value={this.state.activity} onChange={this.handleActivity}>
-                <option value="0">Never</option>
-                <option value="1">once a month</option>
-                <option value="2">once a week</option>
-                <option value="3">every day</option>
-              </select>
-            </span>
+          <Select callBack={this.handleActivity} />
+          <Radio callBack={this.handleSmoking} question={"Are you smoking?"} />
+          <Radio callBack={this.handleLike} question={"Do yo like sport?"} />
+          <div className="has-text-centered">
+            <a className="button is-primary is-large" onClick={this.handleSubmit}>Calculate</a>
           </div>
         </div>
-        <div className="has-text-centered">
-          <a className="button is-primary is-large" onClick={this.handleSubmit}>Calculate</a>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
-ReactDOM.render(<NameForm />, document.getElementById('app'))
+ReactDOM.render(<Game />, document.getElementById('app'))
