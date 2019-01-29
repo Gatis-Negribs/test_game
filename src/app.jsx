@@ -46,7 +46,6 @@ class Game extends React.Component {
   handleSubmit(event) {
     if(this.state.age == '') return;
     this.setState({submitted: true})
-    console.log('state: ', this.state);
   }
 
   render() {

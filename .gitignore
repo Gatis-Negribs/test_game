@@ -1,5 +1,2 @@
 # Dependencies handled via NPM
 node_modules/
-
-# Generated files by webpack
-dist/
