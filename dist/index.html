@@ -4,17 +4,34 @@
   <title>Test Game</title>
   <link rel="stylesheet" href="css/mystyles.css">
   <script src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script>
-  <script>
-    FBInstant.startGameAsync().then(function() {
-      game.start();
-    });
-  </script>
-<link href="css/mystyles.css?012df18185ffabbc964c" rel="stylesheet"></head>
+<link href="css/mystyles.css?44f6b1bd19f9ad8a0de1" rel="stylesheet"></head>
 <body>
+  <script>
+    FBInstant.initializeAsync().then(function() {
+      FBInstant.setLoadingProgress(100);
+    });
+    FBInstant.startGameAsync();
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '243738813221258',
+        xfbml: true,
+        version: 'v2.1'
+      });
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <div class="container has-text-centered section">
     <p class="subtitle">Test game</p>
     <h1 class="title">Calculate your chances of being olympic champion</h1>
   </div>
   <div id="app"></div>
-<script type="text/javascript" src="main.js?012df18185ffabbc964c"></script></body>
+<script type="text/javascript" src="main.js?44f6b1bd19f9ad8a0de1"></script></body>
 </html>

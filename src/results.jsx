@@ -17,10 +17,23 @@ class Results extends React.Component {
     this.setState({result: res})
   }
 
+  share(res) {
+    let message = 'My chances of being olympic champion is' + {res} +'%';
+    FB.ui({
+      method: 'share',
+      quote: message
+    }, function(response){});
+  }
+
   render() {
     return (
-      <div className="container box has-text-centered section">
-       <h1 className="title has-text-info">Your chances of being olympic champion is <b>{this.state.result}%</b></h1>
+      <div>
+        <div className="container box has-text-centered section">
+         <h1 className="title has-text-info">Your chances of being olympic champion is <b>{this.state.result}%</b></h1>
+        </div>
+        <div className="has-text-centered">
+          <a className="button is-primary is-large" onClick={() => this.share(this.state.result)}>Share</a>
+        </div>
       </div>
     );
   }
